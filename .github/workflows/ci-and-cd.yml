@@ -1,0 +1,29 @@
+name: CI & CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test_build:
+    name: Build Test Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+
+      - name: Add CI/CD scripts to system path
+        run: echo "::add-path::${GITHUB_WORKSPACE}/.github/workflows/bin"
+
+      - name: Login to Github Package Registry for Docker
+        run: docker login docker.pkg.github.com -u vovimayhem --password ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Test Image
+        run: ci-compose build test
+
+      - name: Push Test Image
+        run: ci-compose push test

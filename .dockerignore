@@ -1,0 +1,11 @@
+.devcontainer
+.vscode
+.vscode-server
+.git
+.gitconfig
+.gitignore
+
+#ignorar archivos de historial
+
+#ignorar archivos e docker
+*-compose.yml

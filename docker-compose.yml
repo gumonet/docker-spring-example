@@ -1,8 +1,7 @@
 version: "3.7"
 
 volumes: #definimos los volumenes del sistema (son como discos duros virtuales)
-    postgres_data:
-    gradle_user_home:    
+    postgres_data:  
 
 services:
     postgres:
@@ -11,23 +10,7 @@ services:
             - postgres_data:/var/lib/posgresql/postgres_data #Compartimos los datos de posgres al volumen del sistema, esta ruta viene en la documentación de la imagén
             - ./db/init:/docker-entrypoint-initdb.d
         ports:
-            - 5432:5432
+            - ${DEMO_PG_PORT:-5432}:5432
         environment:
             POSTGRES_PASSWORD: 123456789
-     
-    web:
-        image: vovimayhe/spring-demo:development
-        build:
-            context: .
-            #target: development
-        ports:
-            - 8080:8080
-        volumes:
-            - .:/usr/src    
-            - gradle_user_home:/usr/local/gradle
-        depends_on:  #Se especifican los servicios que necesitamos levantar antes de este
-            - postgres
-        environment: 
-            SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/demo_development
-            SPRING_DATASOURCE_USERNAME: postgres
-            SPRING_DATASOURCE_PASSWORD: 123456789
+            

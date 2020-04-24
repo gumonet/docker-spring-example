@@ -1,0 +1,17 @@
+version: "3.7"
+
+volumes: #definimos los volumenes del sistema (son como discos duros virtuales)
+    gradle_user_home:    
+
+services:
+    test:
+        image: docker.pkg.github.com/vovimayhem/docker-spring-example-2/spring-demo:testing
+        build:
+            context: .
+           # target: testing
+        depends_on:  #Se especifican los servicios que necesitamos levantar antes de este
+            - postgres
+        environment: 
+            SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/demo_development
+            SPRING_DATASOURCE_USERNAME: postgres
+            SPRING_DATASOURCE_PASSWORD: 123456789

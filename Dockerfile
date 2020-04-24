@@ -1,4 +1,6 @@
-FROM openjdk:14-jdk-buster
+# Stage I: Development Image ==========================================================================================================
+
+FROM openjdk:14-jdk-buster AS development
 
 #2 Definir directorio de trabajo
 WORKDIR /usr/src
@@ -10,7 +12,6 @@ ENV HOME=/usr/src
 ENV GRADLE_VERSION=6.3 GRADLE_USER_HOME=/usr/local/gradle
 
 #Add Gradle executable s to PATH:
-
 ENV PATH=opt/gradle/gradle-${GRADLE_VERSION}/bin:${PATH}
 
 
@@ -20,3 +21,17 @@ RUN curl -L -o "gradle-${GRADLE_VERSION}-bin.zip" \
  && mkdir -p /opt/gradle /usr/local/gradle \
  && unzip -d /opt/gradle gradle-${GRADLE_VERSION}-bin.zip \
  && rm -rf "gradle-${GRADLE_VERSION}-bin.zip"
+
+
+ #step  Define default command:
+ CMD ["gradle", "bootRun"]
+
+# ==========================================================================================================
+
+FROM development AS testing
+
+COPY . /usr/src
+
+CMD ["gradle", "test"]
+
+# ==========================================================================================================

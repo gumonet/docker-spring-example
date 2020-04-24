@@ -34,4 +34,6 @@ out/
 ### VS Code ###
 .vscode/
 db/dumps/
-!db/dumps/.keep
+
+##no ignorar el siguiente archivo
+!db/dumps/.keep 
