@@ -6,7 +6,7 @@ volumes:
 
 services:
   web:
-    image: vovimayhem/spring-demo:latest
+    image: gumonet/spring-demo:latest
     build:
       context: .
       # target: release

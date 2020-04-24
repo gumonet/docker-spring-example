@@ -5,7 +5,7 @@ volumes:
 
 services:
   web:
-    image: vovimayhem/spring-demo:development
+    image: gumonet/spring-demo:development
     build:
       context: .
       target: development

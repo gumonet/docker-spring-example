@@ -12,7 +12,7 @@ ENV HOME=/usr/src
 ENV GRADLE_VERSION=6.3 GRADLE_USER_HOME=/usr/local/gradle
 
 #Add Gradle executable s to PATH:
-ENV PATH=opt/gradle/gradle-${GRADLE_VERSION}/bin:${PATH}
+ENV PATH=/opt/gradle/gradle-${GRADLE_VERSION}/bin:${PATH}
 
 
 # Step 7: Install the configured Gradle version:

@@ -5,7 +5,7 @@ volumes: #definimos los volumenes del sistema (son como discos duros virtuales)
 
 services:
     test:
-        image: docker.pkg.github.com/vovimayhem/docker-spring-example-2/spring-demo:testing
+        image: docker.pkg.github.com/gumonet/docker-spring-example/spring-demo:testing
         build:
             context: .
            # target: testing
