@@ -1,6 +1,6 @@
 # Stage I: Development Image ==========================================================================================================
 
-FROM openjdk:14-jdk-alphine AS development
+FROM openjdk:14-jdk-buster AS development
 
 #2 Definir directorio de trabajo
 WORKDIR /usr/src
@@ -23,8 +23,8 @@ RUN curl -L -o "gradle-${GRADLE_VERSION}-bin.zip" \
  && rm -rf "gradle-${GRADLE_VERSION}-bin.zip"
 
 
- #step  Define default command:
- CMD ["gradle", "bootRun"]
+ #step  Define default command: son los comandos que se ejecutan por default
+ CMD ["gradle", "bootRun"] 
 
 # STAGE TESTING ==========================================================================================================
 
@@ -34,16 +34,18 @@ COPY . /usr/src
 
 CMD ["gradle", "test"]
 
-# STAGE ==========================================================================================================
+# STAGE BUILDER ==========================================================================================================
 
 FROM testing AS builder
 
 RUN gradle build -x test
 
-# Release
-FROM openjdk:14-jdk-alphine AS release
+# STAGER RELEASE Release se comienza con a imagen oficiakl y en lugar de instalar todo solo copiamos lo que sirve de la maquina anterior, el jar
+FROM openjdk:14-jdk-buster AS release
 
-COPY --from=builder /usr/src/build/libs/demo-0.1-SNAPSHOT.jar .
+COPY --from=builder /usr/src/build/libs/demo-0.0.1-SNAPSHOT.jar .
+
+CMD [ "java", "-jar", "demo.0.0.1-SNAPSHOT.jar" ]
 
 # Set the default command
 
