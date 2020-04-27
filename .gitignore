@@ -33,7 +33,17 @@ out/
 
 ### VS Code ###
 .vscode/
-db/dumps/
 
-##no ignorar el siguiente archivo
-!db/dumps/.keep 
+
+# Ignore Database Dumps:
+db/dumps/
+!db/dumps/.keep
+
+
+# Ingore dotenv files:
+*.env
+!*example.env
+
+# Ignore VS Code Server:
+.vscode-server
+.gitconfig

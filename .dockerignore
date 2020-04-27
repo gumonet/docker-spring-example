@@ -1,11 +1,38 @@
+# Ignorar directorios de Visual Studio Code:
 .devcontainer
 .vscode
 .vscode-server
+
+# Ignorar archivos y directorios de Git:
 .git
 .gitconfig
 .gitignore
 
-#ignorar archivos de historial
+# Ignorar archivos de historial:
+.*_hist*
 
-#ignorar archivos e docker
+# Ignorar archivos del sistema operativo:
+**/.DS_Store
+
+# Ignorar todos los archivos de Docker
+Dockerfile
 *-compose.yml
+.dockerignore
+
+# Ignorar archivos de dotenv:
+*.env
+
+# Ignorar builds:
+build/
+
+# Ignore gradle cache:
+.gradle/
+
+# Ignore github directory:
+.github/
+
+# Ignore database dumps:
+db/dumps
+
+# Ignore eclipse settings:
+.settings

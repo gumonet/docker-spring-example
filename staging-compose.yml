@@ -1,19 +1,14 @@
+# alias staging-compose="docker-compose -f docker-compose.yml -f staging-compose.yml"
 version: "3.7"
-
-volumes:
-  gradle_user_home:
 
 services:
   web:
-    image: vovimayhem/spring-demo:development
+    image: vovimayhem/spring-demo:latest
     build:
       context: .
-      target: development
+      target: release
     ports:
       - ${DEMO_WEB_PORT:-8080}:8080
-    volumes:
-      - .:/usr/src
-      - gradle_user_home:/usr/local/gradle
     depends_on:
       - postgres
     environment:

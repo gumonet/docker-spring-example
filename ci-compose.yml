@@ -1,31 +1,32 @@
+# alias ci-compose="docker-compose -f docker-compose.yml -f ci-compose.yml"
+
 version: "3.7"
 
-volumes: #definimos los volumenes del sistema (son como discos duros virtuales)
-    gradle_user_home:    
+volumes:
+  gradle_user_home:
 
-services: #service = Container
-    test:
-        image: docker.pkg.github.com/gumonet/docker-spring-example/spring-demo:testing
-        build:
-            context: .
-            target: testing
-        depends_on:  #Se especifican los servicios que necesitamos levantar antes de este
-            - postgres
-        environment: 
-            SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/demo_development
-            SPRING_DATASOURCE_USERNAME: postgres
-            SPRING_DATASOURCE_PASSWORD: 123456789
+services:
+  test:
+    image: docker.pkg.github.com/${GITHUB_ACTOR:-vovimayhem}/docker-spring-example-2/spring-demo:testing
+    build:
+      context: .
+      target: testing
+    depends_on:
+      - postgres
+    command: gradle test
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/demo_development
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 3x4mpl3P455w0rd
 
-    # Solo compilamos la imagen ya que vamos a contruir el release para que genere el war que se irá a producción
-    # a partir de aqui ya no ocupamos posgres por que ya no generamos pruebas la base de datos ya debe estar en producción
-    builder:  
-        image: docker.pkg.github.com/gumonet/docker-spring-example/spring-demo:builder
-        build:
-            context: .
-            target: builder
-    
-    release: #Se genera el release 
-        image: docker.pkg.github.com/gumonet/docker-spring-example/spring-demo:builder
-        build:
-            context: .
-            target: release
+  builder:
+    image: docker.pkg.github.com/${GITHUB_ACTOR:-vovimayhem}/docker-spring-example-2/spring-demo:builder
+    build:
+      context: .
+      target: builder
+
+  release:
+    image: docker.pkg.github.com/${GITHUB_ACTOR:-vovimayhem}/docker-spring-example-2/spring-demo:latest
+    build:
+      context: .
+      target: release
