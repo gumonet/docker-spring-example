@@ -20,7 +20,7 @@ jobs:
         run: echo "::add-path::${GITHUB_WORKSPACE}/.github/workflows/bin"
 
       - name: Login to Github Package Registry for Docker
-        run: docker login docker.pkg.github.com -u ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
+        run: docker login docker.pkg.github.com -u gumonet --password ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Test Image
         run: ci-compose build test
