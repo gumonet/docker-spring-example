@@ -7,7 +7,7 @@ volumes:
 
 services:
   test:
-    image: docker.pkg.github.com/${GITHUB_ACTOR:-vovimayhem}/docker-spring-example-2/spring-demo:testing
+    image: docker.pkg.github.com/${GITHUB_ACTOR:-gumonet}/docker-spring-example/spring-demo:testing
     build:
       context: .
       target: testing
@@ -20,13 +20,13 @@ services:
       SPRING_DATASOURCE_PASSWORD: 3x4mpl3P455w0rd
 
   builder:
-    image: docker.pkg.github.com/${GITHUB_ACTOR:-vovimayhem}/docker-spring-example-2/spring-demo:builder
+    image: docker.pkg.github.com/${GITHUB_ACTOR:-gumonet}/docker-spring-example/spring-demo:builder
     build:
       context: .
       target: builder
 
   release:
-    image: docker.pkg.github.com/${GITHUB_ACTOR:-vovimayhem}/docker-spring-example-2/spring-demo:latest
+    image: docker.pkg.github.com/${GITHUB_ACTOR:-gumonet}/docker-spring-example/spring-demo:latest
     build:
       context: .
       target: release
